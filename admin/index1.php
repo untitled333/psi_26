@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include $_SERVER['DOCUMENT_ROOT'] . '/lapka-nadiyi/config/db.php';
 
 $message = "";
@@ -10,10 +14,15 @@ if (isset($_GET['delete_id'])) {
     $query = "DELETE FROM animals WHERE id = $delete_id";
     
     if ($db->query($query)) {
-        $message = "<div class='alert alert-success'>Zwierzę zostało usunięte z bazy danych.</div>";
+        header('Location: /lapka-nadiyi/admin/index1.php?success=1');
+        exit;
     } else {
-        $message = "<div class='alert alert-danger'>błąd usuwania " . $db->error . "</div>";
+        $message = "<div class='alert alert-danger'>Błąd usuwania: " . $db->error . "</div>";
     }
+}
+
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $message = "<div class='alert alert-success'>Zwierzę zostało pomyślnie usunięte z bazy danych. </div>";
 }
 ?>
 
@@ -57,20 +66,21 @@ if (isset($_GET['delete_id'])) {
                 </thead>
                 <tbody>
                     <?php
-           
                     $result = $db->query("SELECT * FROM animals ORDER BY id DESC");
                     
-                    if ($result->num_rows > 0) {
+                    if ($result && $result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $id = $row['id'];
                             $name = $row['name'];
                             $age = $row['age'];
+                            $image = $row['image']; 
                             $desc = $row['description'];
                     ?>
                             <tr>
                                 <td class="fw-bold ps-3">#<?php echo $id; ?></td>
                                 <td>
-                                    <img src="../img/<?php echo $id; ?>.png" class="rounded border shadow-sm" style="width: 60px; height: 60px; object-fit: cover;">
+ 
+                                    <img src="../img/<?php echo $image; ?>" class="rounded border shadow-sm" style="width: 60px; height: 60px; object-fit: cover;">
                                 </td>
                                 <td class="fw-bold text-success"><?php echo htmlspecialchars($name); ?></td>
                                 <td><?php echo htmlspecialchars($age); ?></td>
@@ -82,7 +92,8 @@ if (isset($_GET['delete_id'])) {
                                         <i class="bi bi-pencil-square"></i> Edytuj
                                     </a>
                                     
-                                    <a href="index.php?delete_id=<?php echo $id; ?>" class="btn btn-danger btn-sm fw-semibold" onclick="return confirm('Czy na pewno chcesz usunąć tego zwierzaka z bazy danych?');">
+                                   
+                                    <a href="index1.php?delete_id=<?php echo $id; ?>" class="btn btn-danger btn-sm fw-semibold" onclick="return confirm('Czy na pewno chcesz usunąć tego zwierzaka z bazy danych?');">
                                         <i class="bi bi-trash"></i> Usuń
                                     </a>
                                 </td>

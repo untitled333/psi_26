@@ -1,7 +1,0 @@
-Options -Indexes
-
-DirectoryIndex index.php
-
-ErrorDocument 404 /lapka-nadiyi/errors/404.php
-
-AddDefaultCharset UTF-8

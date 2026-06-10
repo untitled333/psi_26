@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container" style="max-width: 450px;">
     <div class="card shadow border-0" style="border-radius: 15px;">
         <div class="card-body p-4">
-            <h3 class="text-center fw-bold text-success mb-4">Stwórz konto 🐾</h3>
+            <h3 class="text-center fw-bold text-success mb-4">Stwórz konto </h3>
 
             <?php if(!empty($error)): ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -90,7 +90,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const jsAlert = document.getElementById('js-alert');
-    
+
     const username = usernameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value;
