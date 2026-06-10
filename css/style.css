@@ -3,20 +3,19 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. Робимо картки тварин ще красивішими */
 .card {
-    border: none; /* Прибираємо стандартну грубу рамку Bootstrap */
-    border-radius: 15px; /* Сильніше заокруглюємо кути картки */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Додаємо плавність для ефекту наведення */
+    border: none; 
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
-/* 3. Ефект при наведенні мишкою на картку (вона буде злегка підніматися) */
+
 .card:hover {
-    transform: translateY(-5px); /* Піднімаємо картку на 5 пікселів вгору */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important; /* Робимо тінь густішою */
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important; 
 }
 
-/* 4. Заокруглюємо верхні кути фотографій у картках, щоб вони збігалися з формою картки */
+
 .card-img-top {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;

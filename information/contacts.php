@@ -1,5 +1,4 @@
 <?php 
-// Виходимо з папки information і підключаємо інклуди
 include '../includes/header.php'; 
 include '../includes/sidebar.php'; 
 ?>

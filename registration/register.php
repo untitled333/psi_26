@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Залізобетонна перевірка на PHP (Бекенд) залишається для безпеки!
+    
     if (empty($username) || empty($email) || empty($password)) {
         $error = "Wszystkie pola są wymagane!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -85,20 +85,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <script>
 document.getElementById('registerForm').addEventListener('submit', function(event) {
-    // 1. Знаходимо наші поля та блок для помилки
+    
     const usernameInput = document.getElementById('username');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const jsAlert = document.getElementById('js-alert');
-
-    // Очищаємо пробіли
+    
     const username = usernameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
     let errorMessage = "";
 
-    // 2. ВАЛІДАЦІЯ НА JAVASCRIPT
+    
     if (username === "" || email === "" || password === "") {
         errorMessage = "JavaScript: Wszystkie pola muszą być wypełnione!";
     } else if (username.length < 3) {
@@ -107,30 +106,27 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         errorMessage = "JavaScript: Hasło musi mieć co najmniej 6 znaków!";
     }
 
-    // 3. ОБРОБКА РЕЗУЛЬТАТУ ВАЛІДАЦІЇ
+    
     if (errorMessage !== "") {
-        // Зупиняємо відправку форми на сервер PHP!
         event.preventDefault(); 
         
-        // Показуємо наш JS блок з помилкою
         jsAlert.innerText = errorMessage;
         jsAlert.classList.remove(' d-none');
         
-        // Підсвічуємо червоною рамкою те поле, де помилка (наприклад, пароль)
+        
         if (password.length < 6) {
             passwordInput.classList.add('is-invalid');
         } else if (username.length < 3) {
             usernameInput.classList.add('is-invalid');
         }
     } else {
-        // Якщо все правильно — ховаємо помилки і дозволяємо формі летіти на PHP
+        
         jsAlert.classList.add('d-none');
         usernameInput.classList.remove('is-invalid');
         passwordInput.classList.remove('is-invalid');
     }
 });
 
-// Додатковий інтерактив: коли юзер починає виправлять помилку в полі, прибираємо червону рамку
 document.getElementById('password').addEventListener('input', function() {
     this.classList.remove('is-invalid');
 });

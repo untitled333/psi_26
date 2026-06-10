@@ -1,13 +1,12 @@
 <?php 
 include '../includes/header.php'; 
 include '../includes/sidebar.php'; 
-// Підключаємо базу даних (папка config лежить на рівень вище, тому ../)
 include '../config/db.php'; 
 ?>
 
 <main class="col-md-10 p-4">
     <div class="mb-5">
-        <h2 class="fw-bold text-success mb-3">O nas — Łapka Nadziei 🐾</h2>
+        <h2 class="fw-bold text-success mb-3">O nas — Łapka Nadziei</h2>
         <p class="fs-5 text-dark">
             Naszą misją jest pomoc bezdomnym i skrzywdzonym zwierzętom. Zapewniamy im bezpieczne schronienie, 
             opiekę weterynaryjną oraz szukamy dla nich nowych, kochających domów. Każdego dnia nasi wolontariusze 
@@ -17,11 +16,11 @@ include '../config/db.php';
 
     <hr class="my-5">
 
-    <h3 class="fw-bold text-dark mb-4">Wskazówki i Aktualności od naszego zespołu 📰</h3>
+    <h3 class="fw-bold text-dark mb-4">Wskazówki i Aktualności od naszego zespołu</h3>
     
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <?php
-        // Наша магія об'єднання таблиць (LEFT JOIN)
+
         $query = "SELECT posts.*, authors.author_name, authors.author_role 
                   FROM posts 
                   LEFT JOIN authors ON posts.author_id = authors.id 

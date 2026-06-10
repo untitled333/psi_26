@@ -1,5 +1,5 @@
 <?php
-session_start(); // Запускаємо сесію, щоб зберегти стан авторизації
+session_start(); 
 include $_SERVER['DOCUMENT_ROOT'] . '/lapka-nadiyi/config/db.php';
 
 $error = "";
@@ -12,20 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Wprowadź login i hasło!";
     } else {
         $username = $db->real_escape_string($username);
-
-        // Шукаємо користувача в базі
+        
         $result = $db->query("SELECT * FROM users WHERE username = '$username'");
         
         if ($result->num_rows == 1) {
             $user = $result->fetch_assoc();
             
-            // ПРАВИЛЬНА ВЗАЄМОДІЯ: Перевіряємо, чи збігається введений пароль із хешем у базі
+            
             if (password_hash($password, PASSWORD_DEFAULT) || password_verify($password, $user['password'])) {
-                // Якщо все правильно, записуємо дані користувача в сесію
+                
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
 
-                // Перенаправляємо на головну сторінку сайту
+    
                 header("Location: /lapka-nadiyi/index.php");
                 exit();
             } else {
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container" style="max-width: 450px;">
     <div class="card shadow border-0" style="border-radius: 15px;">
         <div class="card-body p-4">
-            <h3 class="text-center fw-bold text-success mb-4">Logowanie 🐾</h3>
+            <h3 class="text-center fw-bold text-success mb-4">Logowanie</h3>
 
             <? if(!empty($error)): ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>

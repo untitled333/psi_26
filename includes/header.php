@@ -1,5 +1,4 @@
 <?php
-// Запускаємо сесію, щоб хедер знав, чи залогінений користувач
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

@@ -1,26 +1,24 @@
 <?php
-// Підключаємо базу даних через абсолютний шлях до папки config
+
 include $_SERVER['DOCUMENT_ROOT'] . '/lapka-nadiyi/config/db.php';
 
 $message = "";
 
-// 1. ПЕРЕВІРКА: Яку саме тваринку ми хочемо редагувати?
-// Ми беремо ID з адресного рядка (на przykład: edit_animal.php?id=1)
+
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     
-    // Витягуємо поточні дані цієї тваринки з бази
+
     $result = $db->query("SELECT * FROM animals WHERE id = $id");
     $animal = $result->fetch_assoc();
     
     if (!$animal) {
-        die("Тваринку з таким ID не знайдено!");
+        die("nie znaleziono takiego zwierzęcia");
     }
 } else {
-    die("Не вказано ID тваринки для редагування!");
+    die("nie określono identyfikatora");
 }
 
-// 2. ОНОВЛЕННЯ: Якщо користувач відправив змінену форму
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $db->real_escape_string($_POST['name']);
     $age = $db->real_escape_string($_POST['age']);
@@ -29,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($name) && !empty($age) && !empty($image) && !empty($description)) {
         
-        // SQL-запит для оновлення (UPDATE)
+
         $query = "UPDATE animals SET 
                     name = '$name', 
                     age = '$age', 
@@ -38,17 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   WHERE id = $id";
         
         if ($db->query($query)) {
-            $message = "<div class='alert alert-success'>Дані успішно оновлено!</div>";
-            // Оновлюємо дані у змінній $animal, щоб вони одразу змінилися у формі на екрані
+            $message = "<div class='alert alert-success'wszystko jest zaktualizowane</div>";
+        
             $animal['name'] = $name;
             $animal['age'] = $age;
             $animal['image'] = $image;
             $animal['description'] = $description;
         } else {
-            $message = "<div class='alert alert-danger'>Помилка оновлення: " . $db->error . "</div>";
+            $message = "<div class='alert alert-danger'>błąd aktualizacji: " . $db->error . "</div>";
         }
     } else {
-        $message = "<div class='alert alert-warning'>Будь ласка, заповніть усі поля!</div>";
+        $message = "<div class='alert alert-warning'>wszystkie pola muszą być wypełnione!</div>";
     }
 }
 ?>
@@ -67,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <div class="card shadow">
         <div class="card-header bg-warning text-dark text-center py-3">
-            <h3 class="mb-0 fw-bold">Edytuj dane zwierzaka ✏️</h3>
+            <h3 class="mb-0 fw-bold">Edytuj dane zwierzaka</h3>
         </div>
         <div class="card-body p-4">
             

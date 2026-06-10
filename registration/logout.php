@@ -1,9 +1,8 @@
 <?php
-session_start();    // Підключаємося до поточної сесії
-session_unset();    // Очищаємо всі змінні сесії (забуваємо логін)
-session_destroy();  // Повністю знищуємо сесію на сервері
+session_start();   
+session_unset();   
+session_destroy(); 
 
-// Перенаправляємо користувача назад на головну сторінку сайту
 header("Location: /lapka-nadiyi/index.php");
 exit();
 ?>

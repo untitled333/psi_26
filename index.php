@@ -6,12 +6,10 @@ include 'includes/header.php';
 include 'includes/sidebar.php'; 
 include 'config/db.php'; 
 
-// 1. Пошук та Сортування даних
 $search = isset($_GET['search']) ? $db->real_escape_string($_GET['search']) : '';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'latest';
 $current_user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
 
-// 2. Головний реляційний запит
 $query = "SELECT animals.*, 
           COUNT(likes.id) AS total_likes,
           SUM(CASE WHEN likes.user_id = $current_user_id THEN 1 ELSE 0 END) AS user_liked
@@ -36,7 +34,7 @@ $result = $db->query($query);
 <main class="col-md-10 p-4">
     <div class="row g-3 mb-4 align-items-center">
         <div class="col-md-4">
-            <h2 class="fw-bold mb-0">Nasi podopieczni 🐾</h2>
+            <h2 class="fw-bold mb-0">Nasi podopieczni</h2>
         </div>
         <div class="col-md-8">
             <form action="index.php" method="GET" class="row g-2 justify-content-md-end">
@@ -123,7 +121,7 @@ $result = $db->query($query);
         <?php 
             } 
         } else {
-            echo "<div class='col-12 text-center'><p class='text-muted fs-5 my-5'>Nie znaleziono zwierzaków. 🐾</p></div>";
+            echo "<div class='col-12 text-center'><p class='text-muted fs-5 my-5'>Nie znaleziono zwierzaków.</p></div>";
         }
         ?>
     </div>
@@ -139,7 +137,6 @@ document.querySelectorAll('.like-btn').forEach(button => {
         const formData = new FormData();
         formData.append('animal_id', animalId);
 
-        // Чіткий абсолютний шлях до файлу-обробника
         fetch('/lapka-nadiyi/like_action.php', {
             method: 'POST',
             body: formData
@@ -147,10 +144,9 @@ document.querySelectorAll('.like-btn').forEach(button => {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                // Динамічно міняємо цифру на фронтенді
                 countSpan.innerText = data.likes_count;
 
-                // Перемикаємо класи іконки серця
+               
                 if (data.action === 'liked') {
                     icon.classList.remove('bi-heart');
                     icon.classList.add('bi-heart-fill', 'text-danger');

@@ -1,21 +1,18 @@
 <?php
-// Підключаємо базу даних через папку config
 include $_SERVER['DOCUMENT_ROOT'] . '/lapka-nadiyi/config/db.php';
 
 $message = "";
 
-// --- ОПЕРАЦІЯ DELETE (ВИДАЛЕННЯ) ---
-// Перевіряємо, чи прийшов запит на видалення (наприклад, index.php?delete_id=5)
+
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     
-    // SQL-запит на видалення запису з бази даних
     $query = "DELETE FROM animals WHERE id = $delete_id";
     
     if ($db->query($query)) {
-        $message = "<div class='alert alert-success'>Тваринку успішно видалено з бази даних!</div>";
+        $message = "<div class='alert alert-success'>Zwierzę zostało usunięte z bazy danych.</div>";
     } else {
-        $message = "<div class='alert alert-danger'>Помилка видалення: " . $db->error . "</div>";
+        $message = "<div class='alert alert-danger'>błąd usuwania " . $db->error . "</div>";
     }
 }
 ?>
@@ -34,11 +31,11 @@ if (isset($_GET['delete_id'])) {
     
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="fw-bold text-dark">Panel Administratora 🐾</h1>
+            <h1 class="fw-bold text-dark">Panel Administratora</h1>
             <p class="text-muted mb-0">Zarządzanie zwierzakami w schronisku</p>
         </div>
         <div>
-            <a href="/lapka-nadiyi/index.php" class="btn btn-outline-secondary me-2">← Strona główna сайта</a>
+            <a href="/lapka-nadiyi/index.php" class="btn btn-outline-secondary me-2">← Strona główna</a>
             <a href="add_animal.php" class="btn btn-success fw-bold"><i class="bi bi-plus-circle"></i> Dodaj nowego zwierzaka</a>
         </div>
     </div>
@@ -60,7 +57,7 @@ if (isset($_GET['delete_id'])) {
                 </thead>
                 <tbody>
                     <?php
-                    // Витягуємо актуальний список тварин
+           
                     $result = $db->query("SELECT * FROM animals ORDER BY id DESC");
                     
                     if ($result->num_rows > 0) {
